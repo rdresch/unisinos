@@ -12,6 +12,10 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Title = "Home Page";
 
+            RabbitMQBroker.RabbitMQBroker.StartConsumer();
+            RabbitMQBroker.RabbitMQBroker.SendMessage("teste");
+            var messages = RabbitMQBroker.RabbitMQBroker.ReadMessages();
+
             return View();
         }
     }

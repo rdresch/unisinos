@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace WebApplication1.Controllers
@@ -12,16 +9,16 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Title = "Home Page";
 
+            RabbitMQBroker.RabbitMQBroker.StartConsumer();
+            RabbitMQBroker.RabbitMQBroker.SendMessage("teste");
+
             return View();
         }
 
         [HttpGet]
-        public List<string> ReadMessage()
+        public string[] ReadMessage()
         {
-            RabbitMQBroker.RabbitMQBroker.StartConsumer();
-            RabbitMQBroker.RabbitMQBroker.SendMessage("teste");
-
-            return RabbitMQBroker.RabbitMQBroker.ReadMessages();
+            return RabbitMQBroker.RabbitMQBroker.ReadMessages().ToArray();
         }
     }
 }

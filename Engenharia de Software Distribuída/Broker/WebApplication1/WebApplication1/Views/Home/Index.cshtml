@@ -21,9 +21,9 @@
         $.get("http://localhost:57376/home/ReadMessage/",
             function (data, status) {
                 console.log(data);
-                if (data && data.length) {
+                if (data && data.length > 0) {
                     $.each(data, function (index, value) {
-                        var row = "<tr><td>" + data + "</td></tr>";
+                        var row = "<tr><td>" + value + "</td></tr>";
                         $("#tblMensagens tbody").append(row);
                     });
                 }

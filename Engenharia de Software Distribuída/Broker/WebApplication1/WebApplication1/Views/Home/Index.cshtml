@@ -1,19 +1,32 @@
 ﻿<div class="row">
     <div class="col-md-10">
-        <input type="text" id="txtNovaMensagem" name="txtNovaMensagem"  />        
+        <input type="text" id="txtNovaMensagem" name="txtNovaMensagem" />
     </div>
     <div class="col-md-2">
         <input type="button" />
     </div>
 </div>
 <div class="row">
-    <table id="tblMensagens" name="tblMensagens">
-        <thead></thead>
-        <tbody>
-        </tbody>
-    </table>    
+    <table id="tblMensagens" name="tblMensagens" border="1">
+        <thead>
+        <th>Mensagem</th>
+        </thead>
+        <tbody></tbody>
+    </table>
 </div>
 
 <script type="text/javascript">
-
+    setInterval(function () {
+        // CHAMADA DA API RABBIT
+        $.get("http://localhost:57376/home/ReadMessage/",
+            function (data, status) {
+                console.log(data);
+                if (data && data.length) {
+                    $.each(data, function (index, value) {
+                        var row = "<tr><td>" + data + "</td></tr>";
+                        $("#tblMensagens tbody").append(row);
+                    });
+                }
+            });
+    }, 3000);
 </script>

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace WebApplication1.Controllers
 {
@@ -10,15 +9,20 @@ namespace WebApplication1.Controllers
             ViewBag.Title = "Home Page";
 
             RabbitMQBroker.RabbitMQBroker.StartConsumer();
-            RabbitMQBroker.RabbitMQBroker.SendMessage("teste");
 
             return View();
         }
 
-        [HttpGet]
-        public string[] ReadMessage()
+        [HttpPost]
+        public void SendMessage(string txtNovaMensagem)
         {
-            return RabbitMQBroker.RabbitMQBroker.ReadMessages().ToArray();
+            RabbitMQBroker.RabbitMQBroker.SendMessage(txtNovaMensagem);
+        }
+
+        [HttpGet]
+        public JsonResult ReadMessages()
+        {
+            return Json(RabbitMQBroker.RabbitMQBroker.ReadMessages(), JsonRequestBehavior.AllowGet);
         }
     }
 }

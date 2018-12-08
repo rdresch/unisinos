@@ -1,32 +1,32 @@
 ﻿<div class="row">
-    <div class="col-md-10">
+    <div class="col-md-6">
         <input type="text" id="txtNovaMensagem" name="txtNovaMensagem" />
+        <input type="button" value="Enviar mensagem" onclick="location.href='/Home/SendMessage/message=lero'" />
     </div>
-    <div class="col-md-2">
-        <input type="button" />
+    <div class="col-md-6">
+        <table id="tblMensagens" name="tblMensagens" border="1">
+            <thead>
+                <tr><th>Mensagem</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
-</div>
-<div class="row">
-    <table id="tblMensagens" name="tblMensagens" border="1">
-        <thead>
-        <th>Mensagem</th>
-        </thead>
-        <tbody></tbody>
-    </table>
 </div>
 
 <script type="text/javascript">
     setInterval(function () {
-        // CHAMADA DA API RABBIT
-        $.get("http://localhost:57376/home/ReadMessage/",
-            function (data, status) {
-                console.log(data);
+        $.ajax({
+            type: 'GET',
+            url: '/Home/ReadMessages/',
+            success: function (data) {
                 if (data && data.length > 0) {
+                    var rows = '';
                     $.each(data, function (index, value) {
-                        var row = "<tr><td>" + value + "</td></tr>";
-                        $("#tblMensagens tbody").append(row);
+                        rows += '<tr><td>' + value + '</td></tr>';                        
                     });
+                    $("#tblMensagens tbody").html(rows);
                 }
-            });
+            }
+        });
     }, 3000);
 </script>

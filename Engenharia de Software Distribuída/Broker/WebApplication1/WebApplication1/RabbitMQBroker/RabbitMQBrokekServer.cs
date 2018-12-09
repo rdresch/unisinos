@@ -35,9 +35,9 @@ namespace WebApplication1.RabbitMQBroker
             channel.QueueBind(SERVER_QUEUE_NAME, SERVER_EXCHANGE_NAME, ROUTING_KEY, null);
 
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
+            consumer.Received += (model, eventArgs) =>
             {
-                var body = ea.Body;
+                var body = eventArgs.Body;
                 var message = Encoding.UTF8.GetString(body);
 
                 Thread.Sleep(THREAD_SLEEP_TIME);

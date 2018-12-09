@@ -15,6 +15,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
+            <input type="button" value="Limpar mensagens" onclick="clearClientMessages()" />
         </div>
         <div class="col-md-6">
             <table id="tblServerMessages" name="tblServerMessages" border="1">
@@ -23,6 +24,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
+            <input type="button" value="Limpar mensagens" onclick="clearServerMessages()" />
         </div>
     </div>
 </div>
@@ -42,12 +44,26 @@
         });
     };
 
+    clearClientMessages = function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Home/ClearClientMessages/'
+        });
+    };
+
+    clearServerMessages = function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Home/ClearServerMessages/'
+        });
+    };
+
     setInterval(function () {
         $.ajax({
             type: 'GET',
             url: '/Home/ReadClientMessages/',
             success: function (data) {
-                if (data && data.length > 0) {
+                if (data) {
                     var rows = '';
                     $.each(data, function (index, value) {
                         rows += '<tr><td>' + value + '</td></tr>';                        
@@ -63,7 +79,7 @@
             type: 'GET',
             url: '/Home/ReadServerMessages/',
             success: function (data) {
-                if (data && data.length > 0) {
+                if (data) {
                     var rows = '';
                     $.each(data, function (index, value) {
                         rows += '<tr><td>' + value + '</td></tr>';
@@ -72,5 +88,5 @@
                 }
             }
         });
-    }, 300);
+    }, 250);
 </script>

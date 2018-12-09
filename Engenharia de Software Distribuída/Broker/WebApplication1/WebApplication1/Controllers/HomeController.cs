@@ -20,6 +20,18 @@ namespace WebApplication1.Controllers
             RabbitMQBroker.RabbitMQBrokerClient.SendMessageToServer(message);
         }
 
+        [HttpPost]
+        public void ClearClientMessages()
+        {
+            RabbitMQBroker.RabbitMQBrokerClient.ClearMessages();
+        }
+
+        [HttpPost]
+        public void ClearServerMessages()
+        {
+            RabbitMQBroker.RabbitMQBrokerServer.ClearMessages();
+        }
+
         [HttpGet]
         public JsonResult ReadClientMessages()
         {

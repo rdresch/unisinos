@@ -18,6 +18,11 @@ namespace WebApplication1.RabbitMQBroker
         private const int THREAD_SLEEP_TIME = 3000;
         private static List<string> messages = new List<string>();
 
+        public static void ClearMessages()
+        {
+            messages.Clear();
+        }
+
         public static List<string> ReadMessages()
         {
             return messages;

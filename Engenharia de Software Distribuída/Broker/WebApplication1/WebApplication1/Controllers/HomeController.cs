@@ -14,9 +14,9 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public void SendMessage(string txtNovaMensagem)
+        public void SendMessage(string message)
         {
-            RabbitMQBroker.RabbitMQBroker.SendMessage(txtNovaMensagem);
+            RabbitMQBroker.RabbitMQBroker.SendMessage(message);
         }
 
         [HttpGet]

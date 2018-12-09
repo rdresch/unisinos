@@ -8,21 +8,28 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            RabbitMQBroker.RabbitMQBroker.StartConsumer();
+            RabbitMQBroker.RabbitMQBrokerClient.StartConsumer();
+            RabbitMQBroker.RabbitMQBrokerServer.StartConsumer();
 
             return View();
         }
 
         [HttpPost]
-        public void SendMessage(string message)
+        public void SendMessageToServer(string message)
         {
-            RabbitMQBroker.RabbitMQBroker.SendMessage(message);
+            RabbitMQBroker.RabbitMQBrokerClient.SendMessageToServer(message);
         }
 
         [HttpGet]
-        public JsonResult ReadMessages()
+        public JsonResult ReadClientMessages()
         {
-            return Json(RabbitMQBroker.RabbitMQBroker.ReadMessages(), JsonRequestBehavior.AllowGet);
+            return Json(RabbitMQBroker.RabbitMQBrokerClient.ReadMessages(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult ReadServerMessages()
+        {
+            return Json(RabbitMQBroker.RabbitMQBrokerServer.ReadMessages(), JsonRequestBehavior.AllowGet);
         }
     }
 }

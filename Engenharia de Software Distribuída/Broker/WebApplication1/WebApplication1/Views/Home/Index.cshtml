@@ -2,13 +2,24 @@
 <div class="div-index">
     <div class="row">
         <div class="col-md-6">
-            <input type="text" id="txtNovaMensagem" name="txtNovaMensagem" />
-            <input type="button" value="Enviar mensagem" onclick="sendMessage()" />
+            <input type="text" id="txtNewMessage" name="txtNewMessage" />
+            <input type="button" value="Enviar mensagem" onclick="sendMessageToServer()" />
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <table id="tblClientMessages" name="tblClientMessages" border="1">
+                <thead>
+                    <tr><th>Mensagens do cliente</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
         <div class="col-md-6">
-            <table id="tblMensagens" name="tblMensagens" border="1">
+            <table id="tblServerMessages" name="tblServerMessages" border="1">
                 <thead>
-                    <tr><th>Mensagens Recebidas</th></tr>
+                    <tr><th>Mensagens do servidor</th></tr>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -17,16 +28,16 @@
 </div>
 
 <script type="text/javascript">
-    sendMessage = function () {
-        var txtNovaMensagem = $('#txtNovaMensagem');
+    sendMessageToServer = function () {
+        var txtNewMessage = $('#txtNewMessage');
 
         $.ajax({
             type: 'POST',
-            url: '/Home/SendMessage/',
-            data: { message: txtNovaMensagem.val() },
+            url: '/Home/SendMessageToServer/',
+            data: { message: txtNewMessage.val() },
             success: function () {
-                txtNovaMensagem.val('');
-                txtNovaMensagem.focus();
+                txtNewMessage.val('');
+                txtNewMessage.focus();
             }
         });
     };
@@ -34,16 +45,32 @@
     setInterval(function () {
         $.ajax({
             type: 'GET',
-            url: '/Home/ReadMessages/',
+            url: '/Home/ReadClientMessages/',
             success: function (data) {
                 if (data && data.length > 0) {
                     var rows = '';
                     $.each(data, function (index, value) {
                         rows += '<tr><td>' + value + '</td></tr>';                        
                     });
-                    $('#tblMensagens tbody').html(rows);
+                    $('#tblClientMessages tbody').html(rows);
                 }
             }
         });
-    }, 3000);
+    }, 300);
+
+    setInterval(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/Home/ReadServerMessages/',
+            success: function (data) {
+                if (data && data.length > 0) {
+                    var rows = '';
+                    $.each(data, function (index, value) {
+                        rows += '<tr><td>' + value + '</td></tr>';
+                    });
+                    $('#tblServerMessages tbody').html(rows);
+                }
+            }
+        });
+    }, 300);
 </script>

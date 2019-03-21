@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Engenharia de Software Distribuída",
+    "\\Engenharia de Software Distribuída\\Broker",
+    "\\Engenharia de Software Distribuída\\Broker\\WebApplication1"
   ],
+  "SelectedNode": "\\Engenharia de Software Distribuída\\Broker\\WebApplication1\\WebApplication1.sln",
   "PreviewInSolutionExplorer": false
 }

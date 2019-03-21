@@ -1,19 +1,92 @@
-﻿<div class="row">
-    <div class="col-md-10">
-        <input type="text" id="txtNovaMensagem" name="txtNovaMensagem"  />        
+﻿<hr />
+<div class="div-index">
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" id="txtNewMessage" name="txtNewMessage" />
+            <input type="button" value="Enviar mensagem" onclick="sendMessageToServer()" />
+        </div>
     </div>
-    <div class="col-md-2">
-        <input type="button" />
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <table id="tblClientMessages" name="tblClientMessages" border="1">
+                <thead>
+                    <tr><th>Mensagens do cliente</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <input type="button" value="Limpar mensagens" onclick="clearClientMessages()" />
+        </div>
+        <div class="col-md-6">
+            <table id="tblServerMessages" name="tblServerMessages" border="1">
+                <thead>
+                    <tr><th>Mensagens do servidor</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <input type="button" value="Limpar mensagens" onclick="clearServerMessages()" />
+        </div>
     </div>
-</div>
-<div class="row">
-    <table id="tblMensagens" name="tblMensagens">
-        <thead></thead>
-        <tbody>
-        </tbody>
-    </table>    
 </div>
 
 <script type="text/javascript">
+    sendMessageToServer = function () {
+        var txtNewMessage = $('#txtNewMessage');
 
+        $.ajax({
+            type: 'POST',
+            url: '/Home/SendMessageToServer/',
+            data: { message: txtNewMessage.val() },
+            success: function () {
+                txtNewMessage.val('');
+                txtNewMessage.focus();
+            }
+        });
+    };
+
+    clearClientMessages = function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Home/ClearClientMessages/'
+        });
+    };
+
+    clearServerMessages = function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Home/ClearServerMessages/'
+        });
+    };
+
+    setInterval(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/Home/ReadClientMessages/',
+            success: function (data) {
+                if (data) {
+                    var rows = '';
+                    $.each(data, function (index, value) {
+                        rows += '<tr><td>' + value + '</td></tr>';                        
+                    });
+                    $('#tblClientMessages tbody').html(rows);
+                }
+            }
+        });
+    }, 250);
+
+    setInterval(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/Home/ReadServerMessages/',
+            success: function (data) {
+                if (data) {
+                    var rows = '';
+                    $.each(data, function (index, value) {
+                        rows += '<tr><td>' + value + '</td></tr>';
+                    });
+                    $('#tblServerMessages tbody').html(rows);
+                }
+            }
+        });
+    }, 250);
 </script>

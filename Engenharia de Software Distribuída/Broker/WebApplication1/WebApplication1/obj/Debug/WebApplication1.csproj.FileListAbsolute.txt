@@ -90,3 +90,7 @@ C:\Users\roger\Source\Repos\unisinos\Engenharia de Software Distribuída\Broker\
 C:\Users\roger\Source\Repos\unisinos\Engenharia de Software Distribuída\Broker\WebApplication1\WebApplication1\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\roger\Source\Repos\unisinos\Engenharia de Software Distribuída\Broker\WebApplication1\WebApplication1\bin\System.Web.Http.Owin.xml
 C:\Users\roger\Source\Repos\unisinos\Engenharia de Software Distribuída\Broker\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csproj.CopyComplete
+C:\Users\roger\Source\Repos\unisinos\Engenharia de Software Distribuída\Broker\WebApplication1\WebApplication1\bin\Microsoft.Diagnostics.Tracing.EventSource.dll
+C:\Users\roger\Source\Repos\unisinos\Engenharia de Software Distribuída\Broker\WebApplication1\WebApplication1\bin\RabbitMQ.Client.dll
+C:\Users\roger\Source\Repos\unisinos\Engenharia de Software Distribuída\Broker\WebApplication1\WebApplication1\bin\Microsoft.Diagnostics.Tracing.EventSource.xml
+C:\Users\roger\Source\Repos\unisinos\Engenharia de Software Distribuída\Broker\WebApplication1\WebApplication1\bin\RabbitMQ.Client.xml

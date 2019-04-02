@@ -1,7 +1,8 @@
+<b>Faça seu cadastro</b>
 <input type="text" placeholder="Usuário"  (input)="defineName($event)" value={{user.name}} required />
+<br>
+<input type="text" placeholder="E-mail"  (input)="defineMail($event)" value={{user.mail}} required />
 <br>
 <input type="password" placeholder="Senha" (input)="definePass($event)" value={{user.pass}} required />
 <br>
-<button (click)="login()">Login</button>
-<button [routerLink]="['/new']">Cadastrar</button>
-
+<button (click)="finish()">Concluir</button>
